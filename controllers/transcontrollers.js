@@ -2,7 +2,7 @@ const Transaction = require("../models/transaction-model");
 
 const getTransaction = async (req, res) => {
   try {
-    // console.log("reached");
+    console.log("reached");
     const transactions = await Transaction.find();
     return res.status(200).json({
       success: true,
@@ -19,13 +19,15 @@ const addTransaction = async (req, res) => {
     console.log(req.body);
 
     const { type, category, amount, date } = req.body;
-    const transaction = Transaction.create({
+
+    const transaction = await Transaction.create({
       type,
       category,
       amount,
       date,
     });
     return res.status(201).json({
+      data: transaction,
       message: "Transaction add successfully",
       success: true,
     });
